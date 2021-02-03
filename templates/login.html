@@ -9,6 +9,9 @@
                 flex-direction: row;
                 justify-content: space-between;
             }
+            .msg {
+                text-align: center;
+            }
         </style>
 
     </head>
@@ -21,8 +24,9 @@
             <form action="/register" method="post">
                 <button type="submit">Register</button>
             </form>
-
-                {{error}}
+        </div>
+        <div class="msg">
+            {{msg}}
         </div>
 
         <script type="text/javascript">

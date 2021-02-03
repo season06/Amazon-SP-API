@@ -56,8 +56,9 @@ def getToken_oauth(code):
         'content_type': 'application/x-www-form-urlencoded;charset=utf-8'
     }
 
-    response = requests.post(request_url, data=parameters, headers=header)
-
+    r = requests.post(request_url, data=parameters, headers=header)
+    response = json.loads(r.text)
+    
     if r.status_code == 200:
         config.set('TOKEN', 'access_token', response['access_token'])
         config.set('TOKEN', 'refresh_token', response['refresh_token'])
@@ -67,6 +68,8 @@ def getToken_oauth(code):
     else:
         print(r.status_code)
         print(r.text)
+
+    return r.status_code
 
 
 def getToken(client_id, client_secret):
