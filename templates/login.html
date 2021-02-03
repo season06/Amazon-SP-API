@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <style>
+            .container {
+                padding: 45vh 45vw 0 40vw;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        </style>
+
+    </head>
+    <body>
+        <div class="container">
+            <form action="/login" method="post">
+                <button type="submit">Login</button>
+            </form>
+            
+            <form action="/register" method="post">
+                <button type="submit">Register</button>
+            </form>
+
+                {{error}}
+        </div>
+
+        <script type="text/javascript">
+        // <H1>Register</H1>
+        //     <form action="/register" method="post">
+        //         <b>Applicationd ID</b><br>
+        //         <input type="text" placeholder="Enter Applicationd ID" name="application_id" required><br>
+        //         <div class="button">
+        //             <button type="submit">Register</button>
+        //         </div>
+        //     </form>
+        </script>
+    </body>
+</html>
