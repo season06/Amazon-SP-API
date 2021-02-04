@@ -11,13 +11,13 @@ def home():
 
 @app.route('/register', methods=['POST'])
 def register():
-    redirect_url = getOauth(request.form.get('application_id'))
+    redirect_url = getOauth()
     return redirect(redirect_url, code=302)
 
 
 @app.route('/login', methods=['POST'])
 def login():
-    status_code = getToken(request.form.get('client_id'), request.form.get('client_secret'))
+    status_code = getToken()
 
     if status_code == 200:
         response = listCatalogItems()

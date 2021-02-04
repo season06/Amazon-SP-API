@@ -22,7 +22,7 @@ HEADERS = {
 random = os.urandom(256)
 
 
-def getOauth(application_id):
+def getOauth():
     config.read('config.ini')
 
     request_url = 'https://sellercentral.amazon.com/apps/authorize/consent'
@@ -58,7 +58,7 @@ def getToken_oauth(code):
 
     r = requests.post(request_url, data=parameters, headers=header)
     response = json.loads(r.text)
-    
+
     if r.status_code == 200:
         config.set('TOKEN', 'access_token', response['access_token'])
         config.set('TOKEN', 'refresh_token', response['refresh_token'])
@@ -72,7 +72,7 @@ def getToken_oauth(code):
     return r.status_code
 
 
-def getToken(client_id, client_secret):
+def getToken():
     config.read('config.ini')
 
     request_url = 'https://api.amazon.com/auth/o2/token'
