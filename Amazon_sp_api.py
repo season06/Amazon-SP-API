@@ -9,6 +9,7 @@ from signature import authorization
 ENDPOINT = 'https://sellingpartnerapi-na.amazon.com'
 HOST = 'sellingpartnerapi-na.amazon.com'
 
+config_path = 'config.ini'
 config = configparser.RawConfigParser()
 
 HEADERS = {
@@ -23,7 +24,7 @@ random = os.urandom(256)
 
 
 def getOauth():
-    config.read('config.ini')
+    config.read(config_path)
 
     request_url = 'https://sellercentral.amazon.com/apps/authorize/consent'
     parameters = {
@@ -42,7 +43,7 @@ def getOauth():
 
 
 def getToken_oauth(code):
-    config.read('config.ini')
+    config.read(config_path)
 
     request_url = 'https://api.amazon.com/auth/o2/token'
     parameters = {
@@ -63,7 +64,7 @@ def getToken_oauth(code):
         config.set('TOKEN', 'access_token', response['access_token'])
         config.set('TOKEN', 'refresh_token', response['refresh_token'])
         config.set('TIME', 'expired_time', response['expires_in'])
-        with open('config.ini', 'w') as configfile:
+        with open(config_path, 'w') as configfile:
             config.write(configfile)
     else:
         print(r.status_code)
@@ -73,7 +74,7 @@ def getToken_oauth(code):
 
 
 def getToken():
-    config.read('config.ini')
+    config.read(config_path)
 
     request_url = 'https://api.amazon.com/auth/o2/token'
     parameters = {
@@ -100,13 +101,13 @@ def getToken():
     credentials = response_aws['Credentials']
 
     if r.status_code == 200:
-        config.read('config.ini')
+        config.read(config_path)
         config.set('TOKEN', 'access_token', response['access_token'])
         config.set('AWS', 'access_key', credentials['AccessKeyId'])
         config.set('AWS', 'secret_key', credentials['SecretAccessKey'])
         config.set('AWS', 'session_token', credentials['SessionToken'])
         config.set('TIME', 'expired_time', expired_time)
-        with open('config.ini', 'w') as configfile:
+        with open(config_path, 'w') as configfile:
             config.write(configfile)
     else:
         print(r.status_code)
