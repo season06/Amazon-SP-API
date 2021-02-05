@@ -1,16 +1,15 @@
-import requests, configparser, json
+import requests, configparser, json, os, base64
 from datetime import datetime, timedelta
 import boto3
-import os, base64
 import urllib.parse
 
 from signature import authorization
 
+config_path = '/var/www/html/Amazon-sp-api/config.ini'
+config = configparser.RawConfigParser()
+
 ENDPOINT = 'https://sellingpartnerapi-na.amazon.com'
 HOST = 'sellingpartnerapi-na.amazon.com'
-
-config_path = 'config.ini'
-config = configparser.RawConfigParser()
 
 HEADERS = {
     'host': HOST,
@@ -21,7 +20,6 @@ HEADERS = {
 }
 
 random = os.urandom(256)
-
 
 def getOauth():
     config.read(config_path)
@@ -92,7 +90,10 @@ def getToken():
     expired_time = (datetime.now() + timedelta(seconds = response['expires_in'])).timestamp()
 
     # get AWS token
-    sts_client = boto3.client('sts')
+    sts_client = boto3.client('sts',
+                              aws_access_key_id=config.get('AWS', 'aws_access_key_id'),
+                              aws_secret_access_key=config.get('AWS', 'aws_secret_access_key'))
+
     response_aws = sts_client.assume_role(
         RoleArn="arn:aws:iam::762759851080:role/SP-API",
         RoleSessionName="SP-API",
