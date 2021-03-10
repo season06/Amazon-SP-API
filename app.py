@@ -1,8 +1,7 @@
 from flask import Flask, redirect, request, render_template
-from Amazon_sp_api import getToken, getOauth, getToken_oauth, listCatalogItems
+from utils.seller_partner_api import getToken, getOauth, getToken_oauth, listCatalogItems
 
 app = Flask(__name__)
-
 
 @app.route('/', methods=['GET'])
 def home():

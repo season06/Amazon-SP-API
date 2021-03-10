@@ -5,7 +5,7 @@ import urllib.parse
 
 from signature import authorization
 
-config_path = '/var/www/html/Amazon-sp-api/config.ini'
+config_path = '/var/www/html/Amazon-SP-API/config.ini'
 config = configparser.RawConfigParser()
 
 ENDPOINT = 'https://sellingpartnerapi-na.amazon.com'
